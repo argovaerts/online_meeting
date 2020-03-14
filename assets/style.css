@@ -29,7 +29,6 @@
 
 #videos video {
   margin: 0;
-  width: 30rem;
 }
 
 #videos .userOverlay {
@@ -39,9 +38,24 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  height: 2.5rem;
+  height: 3rem;
   padding: 0.5rem;
-  margin: -3rem 0 0 -3rem;
+  margin: 0rem -3rem 0rem -3rem;
+}
+
+#mute {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  display: none;
+}
+
+#mute img {
+  width: 3rem;
 }
 
 /* constants */
