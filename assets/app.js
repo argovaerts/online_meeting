@@ -53,10 +53,10 @@ else {
     .addEventListener('submit', function(e) {
         e.preventDefault();
         e.srcElement.style.display = 'none';
-        muteBtn.style.display = 'block';
+        document.getElementById('fixedBtns').style.display = 'block';
 
         const username      = document.getElementById('user').value;
-        const fullUsername  = getUuid() + '_' + username; 
+        const fullUsername  = getUuid() + '_' + username;
 
         sinchClient.start({username: fullUsername}).then(function() {
             const groupCall = callClient.callGroup(channel);
@@ -64,18 +64,24 @@ else {
             groupCall.addEventListener({
                 onGroupRemoteCallAdded: function(call) {
                     remoteCalls.push(call);
+
+                    console.log(call);
+
                     if(muted) {
                         call.mute();
                     }
 
-                    let otherName = call.toId.split('_')[1];
+                    let otherName = call.fromId.split('_')[1];
+                    if(otherName === username) {
+                        otherName = call.toId.split('_')[1];
+                    }
                     otherName = otherName.charAt(0).toUpperCase() + otherName.slice(1);
 
                     showStream(call.incomingStream, otherName, remoteCalls.indexOf(call));
                 },
                 onGroupLocalMediaAdded: function(stream) {
-                    let myName = username.charAt(0).toUpperCase() + username.slice(1);
-                    let video = showStream(stream, myName);
+                    let myName  = username.charAt(0).toUpperCase() + username.slice(1);
+                    let video   = showStream(stream, myName);
                     video.muted = true;
                 },
                 onGroupRemoteCallRemoved: function(call) {
@@ -89,7 +95,6 @@ else {
         });
     });
 }
-
 
 muteBtn.addEventListener('click', function(e) {
     e.preventDefault();
@@ -106,5 +111,12 @@ muteBtn.addEventListener('click', function(e) {
             call.mute();
         }
         muteBtn.innerHTML = '<img src="data:image/png;base64,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"/>';
+    }
+});
+
+document.getElementById('hangup').addEventListener('click', function(e) {
+    e.preventDefault();
+    for(let call of remoteCalls) {
+        call.hangup();
     }
 });

@@ -28,7 +28,7 @@
     }
 }
 
-#mute {
+#fixedBtns {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -36,10 +36,11 @@
     bottom: 0;
     left: 0;
     text-align: center;
+    display: none;
+
     img {
         width: 3rem;
     }
-    display: none;
 }
 
 /* constants */
