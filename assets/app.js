@@ -43,7 +43,7 @@ const callClient    = sinchClient.getCallClient();
 const channel       = 'cf7401b7-010b-4fb1-a023-701b0fca95e5';
 const remoteCalls     = [];
 const muteBtn = document.getElementById('mute');
-const muted = true;
+let muted = true;
 
 if(navigator.userAgent.toLowerCase().indexOf('chrome') == -1) {
 	document.getElementById('notChromeWarning').style.display = 'inherit';
